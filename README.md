@@ -86,6 +86,29 @@ cd ~/src/projeto && make
 
 `~/src` só existe dentro da VM. No Mac, use o caminho que você passou em `--share`.
 
+#### Qual pasta usar
+
+Qualquer pasta do Mac serve. Alguns exemplos:
+
+```sh
+fbsd create dev --share ~/code          # só sua, dentro da sua home (recomendado)
+fbsd create dev --share /Users/Shared   # a pasta "Compartilhado" do Finder
+```
+
+A pasta **Compartilhado** que aparece no Finder em português é, no disco, `/Users/Shared`. Ela é visível para todas as contas do Mac e fica fora da sua home. Funciona normalmente com a VM, mas considere isso antes de guardar código ou credenciais nela.
+
+#### Trocar a pasta de uma VM existente
+
+Dentro da VM, a pasta é sempre `~/src`. Para mudar o lado do Mac, não precisa recriar nada:
+
+```sh
+fbsd stop dev
+sed -i '' "s|^SHARE=.*|SHARE='/caminho/da/nova/pasta'|" ~/.fbsd-vm/dev/vm.conf
+fbsd start dev
+```
+
+A pasta compartilhada só é configurada dentro da VM na criação. Numa VM criada sem `--share`, adicionar a pasta depois exige recriá-la.
+
 ### VS Code / SSH direto
 
 ```sh
