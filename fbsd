@@ -198,7 +198,7 @@ cmd_create() {
       printf '  - sysrc -f /boot/loader.conf virtio_p9fs_load=YES\n'
       printf '  - kldload -n virtio_p9fs\n'
       printf '  - mkdir -p /home/%s/src\n' "$user"
-      printf '  - echo "host /home/%s/src p9fs rw 0 0" >> /etc/fstab\n' "$user"
+      printf '  - echo "host /home/%s/src p9fs rw,late,failok 0 0" >> /etc/fstab\n' "$user"
       printf '  - mount /home/%s/src\n' "$user"
     fi
   } > "$seed/user-data"
