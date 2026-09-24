@@ -64,6 +64,28 @@ echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 | `--port N` | primeira porta livre a partir de 2222 |
 | `--user NOME` | seu usuário do macOS |
 
+### Pasta compartilhada: Mac ↔ VM
+
+Com `--share`, a mesma pasta existe dos dois lados, com nomes diferentes:
+
+| Onde | Caminho | Prompt |
+|---|---|---|
+| Mac | a pasta passada em `--share` (ex.: `~/code`) | `daniel@Mac ~ %` |
+| VM | `~/src` | `daniel@dev:~ $` |
+
+Tudo o que você cria ou edita de um lado aparece na hora do outro. O fluxo típico é editar no Mac, com o editor que preferir, e compilar e rodar dentro da VM:
+
+```sh
+# no Mac
+cd ~/code && git clone https://github.com/exemplo/projeto.git
+
+# na VM
+fbsd ssh dev
+cd ~/src/projeto && make
+```
+
+`~/src` só existe dentro da VM. No Mac, use o caminho que você passou em `--share`.
+
 ### VS Code / SSH direto
 
 ```sh
